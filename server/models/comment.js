@@ -21,4 +21,4 @@ class CommentSchema extends mongoose.Schema {
     }
 }
 
-export default mongoose.model('CommentSchema', new CommentSchema())
+export default mongoose.model('comments', new CommentSchema())

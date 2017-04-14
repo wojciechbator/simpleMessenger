@@ -27,4 +27,4 @@ class UserSchema extends mongoose.Schema {
     }
 }
 
-export default mongoose.model('UserSchema', new UserSchema())
+export default mongoose.model('users', new UserSchema())

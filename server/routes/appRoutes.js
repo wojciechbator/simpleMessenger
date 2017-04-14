@@ -14,16 +14,16 @@ router.get('/:resource', (req, res, next) => {
         return
     }
     let promise = new Promise((resolve, reject) => {
-        controller.find(req.query, (err, results) => {
+        controller.find(req.query, (err, result) => {
             if (err) {
                 reject(err)
             }
-            resolve(results)
+            resolve(result)
         })
     })
 
-    promise.then((results) => {
-        res.json({confirmation: 'success', results: results})
+    promise.then((result) => {
+        res.json({confirmation: 'success', result: result})
     }).catch((err) => {
         res.json({confirmation: 'fail', message: err})
     })

@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
-import CommentsList from "./CommentsList"
-import {connect} from "react-redux"
+import React, {Component} from "react";
+import CommentsList from "./CommentsList";
+import styles from "../styles/styles";
+import {Button, Comment, Form, Header} from "semantic-ui-react";
+import {connect} from "react-redux";
+import {refreshComments, saveComment} from "../../redux/comments/commentsActions";
 
-import styles from '../styles/styles'
-import {refreshComments, saveComment} from "../../redux/comments/commentsActions"
+require('../../../node_modules/semantic-ui/dist/components/form.min.css');
+require('../../../node_modules/semantic-ui/dist/components/button.min.css');
+require('../../../node_modules/semantic-ui/dist/components/header.min.css');
+require('../../../node_modules/semantic-ui/dist/components/comment.min.css');
 
 class CommentsContainer extends Component {
   constructor(props) {
@@ -55,16 +60,18 @@ class CommentsContainer extends Component {
   render() {
     return (
       <div style={styles.comment.commentsBox}>
-          <h1>Komentarze:</h1>
+        <Comment.Group>
+          <Header as="h3">Komentarze: </Header>
           { this.props.comments.length === 0
             ? <p>Bądź pierwszym, który skomentuje!</p>
             : <CommentsList comments={this.props.comments}/>}
-        <form onSubmit={this.submitComment}>
-          <h1>Skomentuj</h1>
-          <input onChange={this.updateUsername} type="text"/>
-          <textarea onChange={this.updateBody} type="text"/>
-          <input type="submit" value="odpowiedz"/>
-        </form>
+        </Comment.Group>
+        <Form reply onSubmit={this.submitComment}>
+          <Header as="h3">Skomentuj</Header>
+          <Form.Input fluid onChange={this.updateUsername} type="text"/>
+          <Form.TextArea autoHeight onChange={this.updateBody} type="text"/>
+          <Button type="submit" content='Odpowiedz' color="green"/>
+        </Form>
       </div>
     );
   };
@@ -73,7 +80,11 @@ class CommentsContainer extends Component {
 CommentsContainer.propTypes = {
   status: React.PropTypes.string,
   comment: React.PropTypes.object,
-  comments: React.PropTypes.array
+  comments: React.PropTypes.shape({
+    confirmation: React.PropTypes.string.isRequired,
+    message: React.PropTypes.string,
+    result: React.PropTypes.array
+  })
 };
 
 const mapStateToProps = (store) => {

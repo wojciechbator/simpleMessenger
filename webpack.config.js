@@ -17,9 +17,15 @@ export default {
 			query: {
 				presets: ['react', 'es2015']
 			}
+		}, {
+			test: /\.css$/,
+			loader: 'css-loader'
 		}]
 	},
-	 plugins: [
-    new HtmlWebpackPlugin({template: './client/index.html', inject: 'body'})
-  ]
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './client/index.html',
+			inject: 'body'
+		})
+	]
 }
